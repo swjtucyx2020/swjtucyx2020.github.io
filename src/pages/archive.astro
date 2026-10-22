@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PostRow from '../components/PostRow.astro';
+import Icon from '../components/Icon.astro';
+import { publishedPosts } from '../lib/posts';
+const posts = publishedPosts(await getCollection('posts'));
+const categories = ['全部', ...new Set(posts.map(post => post.data.category))];
+const years = [...new Set(posts.map(post => post.data.pubDate.getUTCFullYear()))];
+---
+<Base title="所有文章">
+  <div class="archive-shell wrap"><header class="page-intro"><p class="eyebrow">LITTLE STORIES, COLLECTED HERE</p><h1>日常的切片<span class="heading-dot">.</span><span class="count">{posts.length} 篇记录</span></h1><p>生活的细枝末节，都有值得记录的理由。</p></header>
+    <div class="archive-controls"><div class="filter-buttons" role="group" aria-label="按分类筛选">{categories.map((category, index) => <button class="filter-button" type="button" data-category={category} aria-pressed={index === 0}>{category}</button>)}</div><label class="search-box"><span class="visually-hidden">搜索文章标题和摘要</span><Icon name="search" size={16} /><input type="search" id="post-search" placeholder="搜一搜这里的故事…" autocomplete="off" aria-controls="archive-results" /></label></div>
+    <p class="archive-summary" id="result-count" role="status" aria-live="polite">共 {posts.length} 篇记录，按时间慢慢翻阅。</p>
+    <noscript><p class="muted">所有文章都在下面；开启 JavaScript 后可使用搜索与分类筛选。</p></noscript>
+    <div id="archive-results">{years.map(year => <section class="archive-year" aria-label={`${year} 年的文章`}><h2>{year}<span class="heading-dot">.</span></h2>{posts.filter(post => post.data.pubDate.getUTCFullYear() === year).map(post => <div class="archive-entry" data-title={post.data.title} data-description={post.data.description} data-category={post.data.category}><PostRow post={post} /></div>)}</section>)}</div>
+    <div class="empty-state" id="no-results" hidden={posts.length > 0}><Icon name="book" size={30} /><h3>这里暂时没有找到故事</h3><p>试试别的关键词，或者回到全部文章。</p><button type="button" id="reset-search">查看全部文章</button></div>
+  </div>
+</Base>
+<script>
+  import { matchesPost } from '../lib/search';
+  const search = document.querySelector<HTMLInputElement>('#post-search')!;
+  const buttons = [...document.querySelectorAll<HTMLButtonElement>('.filter-button')];
+  const entries = [...document.querySelectorAll<HTMLElement>('.archive-entry')];
+  const years = [...document.querySelectorAll<HTMLElement>('.archive-year')];
+  const params = new URLSearchParams(location.search);
+  let category = buttons.some(button => button.dataset.category === params.get('category')) ? params.get('category')! : '全部';
+  search.value = params.get('q') || '';
+  function update() {
+    let count = 0;
+    for (const entry of entries) {
+      const visible = matchesPost({ title: entry.dataset.title!, description: entry.dataset.description!, category: entry.dataset.category! }, search.value, category);
+      entry.hidden = !visible;
+      if (visible) count++;
+    }
+    for (const year of years) year.hidden = !year.querySelector('.archive-entry:not([hidden])');
+    for (const button of buttons) button.setAttribute('aria-pressed', String(button.dataset.category === category));
+    document.querySelector('#result-count')!.textContent = `找到 ${count} 篇记录${category !== '全部' ? ` · ${category}` : ''}`;
+    (document.querySelector('#no-results') as HTMLElement).hidden = count > 0;
+    const next = new URL(location.href);
+    if (category === '全部') next.searchParams.delete('category'); else next.searchParams.set('category', category);
+    if (search.value.trim()) next.searchParams.set('q', search.value.trim()); else next.searchParams.delete('q');
+    history.replaceState(null, '', next);
+  }
+  search.addEventListener('input', update);
+  for (const button of buttons) button.addEventListener('click', () => { category = button.dataset.category!; update(); });
+  document.querySelector('#reset-search')!.addEventListener('click', () => { category = '全部'; search.value = ''; update(); search.focus(); });
+  update();
+</script>

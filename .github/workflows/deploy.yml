@@ -1,0 +1,63 @@
+name: Publish personal blog
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      ASTRO_TELEMETRY_DISABLED: '1'
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v7
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Configure public URL and repository base path
+        shell: bash
+        run: |
+          repository_name="${GITHUB_REPOSITORY#*/}"
+          owner="${GITHUB_REPOSITORY_OWNER,,}"
+          printf 'SITE_URL=https://%s.github.io\n' "$owner" >> "$GITHUB_ENV"
+          if [[ "${repository_name,,}" == "$owner.github.io" ]]; then
+            printf 'BASE_PATH=/\n' >> "$GITHUB_ENV"
+          else
+            printf 'BASE_PATH=/%s/\n' "$repository_name" >> "$GITHUB_ENV"
+          fi
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Test content and search behavior
+        run: npm test
+      - name: Build static blog
+        run: npm run build
+      - name: Verify generated links and feeds
+        run: npm run verify
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
