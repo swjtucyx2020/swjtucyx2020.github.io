@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.npm-cache/
+.superpowers/
+.env
+.env.*
+!.env.example
+.DS_Store
+artifacts/

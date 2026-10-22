@@ -1,0 +1,13 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, readingMinutes } from '../lib/posts';
+import { withBase } from '../lib/paths';
+import Icon from './Icon.astro';
+const { post } = Astro.props as { post: CollectionEntry<'posts'> };
+const href = withBase(`/posts/${post.id}/`, import.meta.env.BASE_URL);
+---
+<article class="post-row">
+  <div class="post-row-date"><time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time><span>{post.data.category}</span></div>
+  <div class="post-row-content"><h3><a href={href}>{post.data.title}</a></h3><p>{post.data.description}</p><div class="post-row-foot"><span>{readingMinutes(post.body || '')} 分钟阅读</span>{post.data.example && <span class="example-label">示例随笔</span>}</div></div>
+  <a class="round-arrow" href={href} aria-label={`阅读：${post.data.title}`}><Icon name="arrow" size={20} /></a>
+</article>

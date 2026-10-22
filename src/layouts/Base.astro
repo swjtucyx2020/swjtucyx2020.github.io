@@ -1,0 +1,67 @@
+---
+import { site } from '../site.config';
+import { withBase } from '../lib/paths';
+import Icon from '../components/Icon.astro';
+import '../styles/global.css';
+interface Props { title?: string; description?: string; type?: string; pubDate?: Date; noindex?: boolean; }
+const { title, description = site.description, type = 'website', pubDate, noindex = false } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const url = (path: string) => withBase(path, base);
+const canonical = new URL(Astro.url.pathname, Astro.site || site.url).href;
+const nav = [{ label: '首页', path: '/' }, { label: '文章', path: '/archive/' }, { label: '关于', path: '/about/' }];
+const pathname = Astro.url.pathname;
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f8f7f2" />
+    <meta name="description" content={description} />
+    <meta name="author" content={site.author} />
+    <title>{title ? `${title} · ${site.name}` : `${site.name} · ${site.tagline}`}</title>
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
+    <link rel="alternate" type="application/rss+xml" title={`${site.name} RSS`} href={url('/rss.xml')} />
+    <meta property="og:title" content={title || site.name} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="zh_CN" />
+    {pubDate && <meta property="article:published_time" content={pubDate.toISOString()} />}
+    {noindex && <meta name="robots" content="noindex" />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到正文</a>
+    <header class="site-header wrap">
+      <a class="brand" href={url('/')} aria-label={`${site.name}首页`}><span class="brand-mark"><Icon name="leaf" size={25} /></span><span>{site.name}<small>A SLOW JOURNAL</small></span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">菜单 <span aria-hidden="true">☰</span></button>
+      <nav id="main-nav" class="main-nav" aria-label="主导航">
+        {nav.map(item => <a href={url(item.path)} aria-current={pathname === url(item.path) ? 'page' : undefined}>{item.label}</a>)}
+        <span class="nav-divider" aria-hidden="true"></span>
+        <a class="rss-nav" href={url('/rss.xml')} aria-label="RSS 订阅"><Icon name="rss" size={17} /><span>订阅</span></a>
+      </nav>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="site-footer wrap">
+      <div><a class="footer-brand" href={url('/')}>{site.name}<span aria-hidden="true"> · </span></a><span>日子很长，值得慢慢收藏。</span></div>
+      <div class="footer-meta"><span>© {new Date().getFullYear()} {site.name}</span><a href={url('/rss.xml')}>RSS</a><span>用心记录，慢慢生长 <span aria-hidden="true">↗</span></span></div>
+    </footer>
+    <script>
+      const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+      const nav = document.querySelector<HTMLElement>('#main-nav');
+      toggle?.addEventListener('click', () => {
+        const open = toggle.getAttribute('aria-expanded') !== 'true';
+        toggle.setAttribute('aria-expanded', String(open));
+        nav?.classList.toggle('is-open', open);
+      });
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+          toggle.setAttribute('aria-expanded', 'false');
+          nav?.classList.remove('is-open');
+          toggle.focus();
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+import StillLife from '../components/StillLife.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../site.config';
+import { withBase } from '../lib/paths';
+const url = (path: string) => withBase(path, import.meta.env.BASE_URL);
+---
+<Base title="关于这个小角落">
+  <div class="about-shell wrap"><div class="page-intro"><p class="eyebrow">A SMALL CORNER OF THE INTERNET</p><h1>很高兴，<br />在这里遇见你<span class="heading-dot">。</span></h1><p>一个属于文字，也属于平凡日子的地方。</p></div><div class="about-grid"><div class="prose"><h2>为什么叫「{site.name}」</h2><p>有些念头，转眼就忘了；有些日子，回头才觉得珍贵。于是留出这样一个小角落，把它们慢慢记下来。</p><p>这里不需要宏大的主题。一段散步路上的风景，一本书里停留很久的句子，或者一个普通下午的新发现，都可以成为一篇记录。</p><h2>你会在这里读到</h2><ul><li><strong>生活手记</strong>：微小、具体，却值得记住的日常。</li><li><strong>散步随想</strong>：走走停停，看看沿途，也看看自己。</li><li><strong>读书片刻</strong>：文字带来的想法，以及尚未想清楚的问题。</li></ul><h2>关于这个博客的开始</h2><p>这是一个刚刚搭好的博客，名字和自我介绍都可以慢慢调整。目前的三篇随笔均为建站示例，已经在文章中标注；它们用来展示阅读体验，不代表博主的真实经历。</p><p>往后，这里会装进真正属于你的文字。</p><blockquote><p>愿我们都能在忙碌之外，给自己的生活留一点空白。</p></blockquote><a class="button primary" href={url('/archive/')}>去读一篇随笔 <Icon name="arrow" size={17} /></a></div><aside class="about-aside"><StillLife /><p>不必写得完美，<br />先把第一句话记下来。</p><span>ONE DAY, ONE LITTLE THING.</span></aside></div></div>
+</Base>

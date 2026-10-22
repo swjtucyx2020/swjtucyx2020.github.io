@@ -1,0 +1,40 @@
+---
+const { variant = 'window' } = Astro.props;
+---
+{variant === 'window' ? (
+  <svg class="still-life" viewBox="0 0 420 310" fill="none" aria-hidden="true">
+    <path d="M90 248V112a113 113 0 0 1 226 0v136" fill="#eee9dd"/>
+    <path d="M106 248V112a97 97 0 0 1 194 0v136" fill="#f9f6ed" stroke="#c8ccb9"/>
+    <path d="M203 17v231M106 118h194" stroke="#c8ccb9"/>
+    <circle cx="254" cy="81" r="25" fill="#d8b375" opacity=".75"/>
+    <path d="M106 195c50-40 94-25 127-7 19-24 45-33 67-28v88H106Z" fill="#d6ddca"/>
+    <path d="M106 218c66-36 132-15 194-2v32H106Z" fill="#a6b79a"/>
+    <path d="M68 249h274" stroke="#a8ae99" stroke-width="2"/>
+    <ellipse cx="227" cy="276" rx="120" ry="7" fill="#e3dfd2"/>
+    <path d="M226 218h63l-9 50c-2 15-44 15-46 0Z" fill="#a66f50"/>
+    <path d="m231 228 53 0m-51 12h49m-47 13h45" stroke="#c08d6b"/>
+    <path d="M255 218c-3-50-13-81-33-114m35 111c4-63 18-93 39-118m-41 119c-13-25-30-45-48-57" stroke="#576a50" stroke-width="2"/>
+    <path d="M235 133c-31 1-36-13-34-30 24 0 35 10 34 30ZM245 164c-26 6-39-8-39-26 27-3 39 9 39 26ZM268 160c28 6 38-7 39-28-28-2-38 8-39 28ZM280 122c24 0 34-13 32-28-24 0-35 10-32 28ZM228 183c-23 8-36-1-43-19 24-7 38 0 43 19Z" fill="#637d5a"/>
+    <rect x="112" y="257" width="81" height="13" rx="2" fill="#8d9f82"/>
+    <rect x="121" y="246" width="77" height="11" rx="2" fill="#d0b88c"/>
+    <path d="M130 247v8m-9 4v9" stroke="#f5f1e7"/>
+    <path d="M166 222h29v25h-29z" fill="#f2eee1" stroke="#9c9f88"/>
+    <path d="M195 226c17-4 17 16 0 12" stroke="#9c9f88"/>
+    <path d="M174 214c-8-7 5-9-1-17" stroke="#c1bba9" stroke-linecap="round"/>
+    <path d="m56 123 5-8m282 62 7 3M70 205l-7 4" stroke="#acb49b"/>
+  </svg>
+) : (
+  <svg class="landscape" viewBox="0 0 480 320" fill="none" aria-hidden="true">
+    <rect width="480" height="320" fill="#dedfc9"/>
+    <circle cx="353" cy="83" r="35" fill="#efd1a0"/>
+    <path d="M0 181c89-55 174-33 250-3 87-61 172-29 230-2v144H0Z" fill="#b2c2a0"/>
+    <path d="M0 238c122-75 214 22 297-22 75-41 136-20 183 0v104H0Z" fill="#81987b"/>
+    <path d="M263 320c-45-35-61-63-2-89 36-15 35-25 13-40" stroke="#e5d9bd" stroke-width="19"/>
+    <path d="M67 0c-9 91-7 166 6 320m-4-169-44-51m40 12L101 63m-29 139 43-57" stroke="#4f6952" stroke-width="8"/>
+    <path d="M405 0c-6 58-3 115 9 161m-10-91-35-28m38 63 39-44" stroke="#637953" stroke-width="5"/>
+    <g fill="#5a7455"><ellipse cx="39" cy="73" rx="43" ry="24" transform="rotate(25 39 73)"/><ellipse cx="109" cy="42" rx="45" ry="25" transform="rotate(-25 109 42)"/><ellipse cx="22" cy="13" rx="51" ry="29"/><ellipse cx="110" cy="137" rx="36" ry="17" transform="rotate(-35 110 137)"/></g>
+    <g fill="#8a9a69"><ellipse cx="373" cy="28" rx="32" ry="17" transform="rotate(23 373 28)"/><ellipse cx="445" cy="47" rx="33" ry="17" transform="rotate(-33 445 47)"/></g>
+    <path d="m117 280 8-7m212 16 9-5m-183-39 8-3" stroke="#dae0c3" stroke-width="2"/>
+    <g fill="#d7b66f"><ellipse cx="157" cy="150" rx="4" ry="8" transform="rotate(30 157 150)"/><ellipse cx="336" cy="197" rx="4" ry="8" transform="rotate(-25 336 197)"/><ellipse cx="219" cy="82" rx="3" ry="6" transform="rotate(45 219 82)"/></g>
+  </svg>
+)}
