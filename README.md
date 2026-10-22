@@ -1,5 +1,11 @@
 # 慢慢记 · 个人生活博客
 
+正式博客：<https://swjtucyx2020.github.io/>
+
+源码仓库：<https://github.com/swjtucyx2020/swjtucyx2020.github.io>
+
+网站已通过 GitHub Pages 发布并验证。以后向仓库的 `main` 分支提交文章或修改，发布工作流会自动更新博客。
+
 米白与深绿色的中文生活随笔博客，使用开源 Astro 生成静态网页。没有付费主题、远程字体、图片服务或数据库依赖，适合使用 GitHub Pages 的免费网址发布。
 
 ## 先看博客

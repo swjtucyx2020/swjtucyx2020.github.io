@@ -24,8 +24,15 @@
 - Node 测试使用 `--test-isolation=none`，避免受限环境禁止测试子进程；测试断言保持不变。
 - 公开仓库内的 Markdown 草稿仍能从源码读取，中文说明明确要求私密内容保存在仓库外。
 
-## 尚未完成
+## 正式部署结果
 
-GitHub Pages 正式部署未执行：当前 GitHub 连接没有创建仓库和启用 Pages 的操作，网页端需要登录，Edge 自动化连接恢复失败。没有创建远程仓库、上传源码或宣称任何预期公网网址已经上线。
+GitHub 账户 `swjtucyx2020` 的 Git 授权已通过浏览器回调恢复。创建了新的公开仓库 `swjtucyx2020/swjtucyx2020.github.io`，未覆盖既有仓库内容。源码已推送到 `main`，Pages 使用 GitHub Actions 构建，HTTPS 已开启。
 
-源码与静态产物均在本地保存并打包。下一步为恢复可操作的 GitHub 登录，创建空公开仓库，上传源码并开启 Pages，然后核验工作流和真实网址。
+- 正式博客：<https://swjtucyx2020.github.io/>
+- 源码仓库：<https://github.com/swjtucyx2020/swjtucyx2020.github.io>
+- 首次成功部署：<https://github.com/swjtucyx2020/swjtucyx2020.github.io/actions/runs/39865851141>
+- 首次部署源码提交：`1835b4500da1ad060a86e836f6124a290d8873be`。
+
+公网实测首页、归档、关于、三篇文章、RSS、站点地图和 robots.txt 共 9 个地址均返回 HTTP 200；RSS 含 3 篇文章，站点地图含 6 个页面。不存在的地址返回 HTTP 404，且展示博客自己的 404 页面。
+
+以后向 `main` 提交会自动重新部署。本地保留完整源码与打包文件，写作及修改步骤见 README。

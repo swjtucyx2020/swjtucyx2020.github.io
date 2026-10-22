@@ -36,11 +36,11 @@
 - Consumes: Markdown 的 title、description、pubDate、category、tags、featured、draft。
 - Produces: `publishedPosts<T>(posts: T[]): T[]`，过滤草稿并按日期倒序；`withBase(path: string, base: string): string`，生成兼容子路径的内部地址。
 
-- [ ] Step 1: 先写测试：断言草稿被过滤、日期倒序、空文章返回空列表、`withBase('/about/', '/journal/') === '/journal/about/'`、根路径无重复斜线。
-- [ ] Step 2: `node --test tests/blog.test.ts`，确认缺少实现导致失败。
-- [ ] Step 3: 安装官方 npm 注册表中的稳定 Astro，锁定依赖，编写内容模型、辅助函数及所有阅读页面；提供三篇标注示例的随笔。
-- [ ] Step 4: 运行 `npm test` 与 `npm run build`，应全部通过；浏览器检查首页和一篇文章的排版。
-- [ ] Step 5: 保存任务提交并记录验证结果。
+- [x] Step 1: 先写测试：断言草稿被过滤、日期倒序、空文章返回空列表、`withBase('/about/', '/journal/') === '/journal/about/'`、根路径无重复斜线。
+- [x] Step 2: `node --test tests/blog.test.ts`，确认缺少实现导致失败。
+- [x] Step 3: 安装官方 npm 注册表中的稳定 Astro，锁定依赖，编写内容模型、辅助函数及所有阅读页面；提供三篇标注示例的随笔。
+- [x] Step 4: 运行 `npm test` 与 `npm run build`，应全部通过；浏览器检查首页和一篇文章的排版。
+- [x] Step 5: 保存任务提交并记录验证结果。
 
 ### Task 2: 归档、搜索与订阅
 
@@ -50,11 +50,11 @@
 - Consumes: Task 1 的 `publishedPosts` 与 `withBase`。
 - Produces: `matchesPost(post: {title: string, description: string, category: string}, query: string, category: string): boolean`；RSS、站点地图与可搜索归档。
 
-- [ ] Step 1: 先写搜索测试：中文标题匹配、英文大小写不敏感、首尾空格被忽略、分类与关键词同时生效、无结果返回 false。
-- [ ] Step 2: `node --test tests/search.test.ts`，确认缺少实现导致失败。
-- [ ] Step 3: 实现归档交互和订阅端点；复用统一的已发布文章过滤逻辑。
-- [ ] Step 4: `npm test`、`npm run build`、`npm run verify` 全部通过；临时加入草稿验证发布产物无其标题、正文及路径；以 `/journal/` 为 base 构建验证内部链接。
-- [ ] Step 5: 保存任务提交并记录验证结果。
+- [x] Step 1: 先写搜索测试：中文标题匹配、英文大小写不敏感、首尾空格被忽略、分类与关键词同时生效、无结果返回 false。
+- [x] Step 2: `node --test tests/search.test.ts`，确认缺少实现导致失败。
+- [x] Step 3: 实现归档交互和订阅端点；复用统一的已发布文章过滤逻辑。
+- [x] Step 4: `npm test`、`npm run build`、`npm run verify` 全部通过；临时加入草稿验证发布产物无其标题、正文及路径；以 `/journal/` 为 base 构建验证内部链接。
+- [x] Step 5: 保存任务提交并记录验证结果。
 
 ### Task 3: 免费发布与交付
 
@@ -64,11 +64,11 @@
 - Consumes: `npm ci`、`npm test`、`npm run build`、`npm run verify` 与构建产物 `dist/`。
 - Produces: 免费 GitHub Pages 发布流程、中文写作步骤与真实部署结果。
 
-- [ ] Step 1: 根据 Astro/GitHub 官方文档添加构建发布工作流，仅授予必需权限；提供本地预览、改名、写文章、添加图片与删除示例的中文说明。
-- [ ] Step 2: 运行完整验证，使用浏览器检查桌面和窄屏、移动导航、搜索及文章目录；检查链接和 RSS。
-- [ ] Step 3: 进行一次独立代码审查并修复会影响使用的问题；保留验证记录。
-- [ ] Step 4: 在已授权账户创建新公开仓库并启用 Pages，上传已验证内容；遇到登录或权限门槛时保留完成的本地博客与说明，并仅请求不可代办的操作。
-- [ ] Step 5: 确认部署成功或明确记录阻碍，交付预览、源码、写作说明与已验证的正式网址。
+- [x] Step 1: 根据 Astro/GitHub 官方文档添加构建发布工作流，仅授予必需权限；提供本地预览、改名、写文章、添加图片与删除示例的中文说明。
+- [x] Step 2: 运行完整验证，使用浏览器检查桌面和窄屏、移动导航、搜索及文章目录；检查链接和 RSS。
+- [x] Step 3: 进行一次独立代码审查并修复会影响使用的问题；保留验证记录。
+- [x] Step 4: 在已授权账户创建新公开仓库并启用 Pages，上传已验证内容；遇到登录或权限门槛时保留完成的本地博客与说明，并仅请求不可代办的操作。
+- [x] Step 5: 确认部署成功或明确记录阻碍，交付预览、源码、写作说明与已验证的正式网址。
 
 ## 执行方式建议
 
