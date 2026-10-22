@@ -91,11 +91,12 @@ git push -u origin HEAD:main
 
 ```powershell
 npm test
+npm run verify:drafts
 npm run build
 npm run verify
 ```
 
-`npm test` 验证草稿过滤、排序、地址与搜索；`npm run build` 生成 `dist/`；`npm run verify` 检查页面内链接、RSS 和站点地图。使用 `npm run preview` 可预览生产构建。
+`npm test` 验证草稿过滤、排序、地址与搜索；`npm run verify:drafts` 用临时草稿进行真实构建，检查其文字和图片均未发布；`npm run build` 清空并重新生成 `dist/`；`npm run verify` 检查页面内链接、RSS 和站点地图。使用 `npm run preview` 可预览生产构建。
 
 项目包含首页、精选文章、文章目录、分类归档、标题与摘要搜索、关于页、404、RSS 和站点地图。没有文章时也会显示清晰的空状态。没有 JavaScript 时仍可直接阅读文章与完整归档。
 

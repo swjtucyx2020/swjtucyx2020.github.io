@@ -40,6 +40,8 @@ jobs:
         run: npm ci
       - name: Test content and search behavior
         run: npm test
+      - name: Confirm draft text and images remain unpublished
+        run: npm run verify:drafts
       - name: Build static blog
         run: npm run build
       - name: Verify generated links and feeds
